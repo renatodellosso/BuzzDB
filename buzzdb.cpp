@@ -52,6 +52,14 @@ class Tuple {
   std::vector<Field> fields;
 
   public:
+    ~Tuple() {
+      for (auto& field : fields) {
+        if (field.type == STRING) {
+          field.~Field();
+        }
+      }
+    }
+
     void addField(const Field& field) {
       fields.push_back(field);
     }
