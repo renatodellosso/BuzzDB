@@ -21,7 +21,8 @@ class Field {
 
     ~Field() {
       if (type == STRING && data.s != nullptr) {
-        delete[] data.s; // Free allocated memory for string
+        // Caused a double free error
+        // delete[] data.s; // Free allocated memory for string
       }
     }
 
@@ -82,6 +83,7 @@ class BuzzDB {
       newTuple.addField(Field(key)); // Add key field
       newTuple.addField(Field(value)); // Add value field
       newTuple.addField(Field(123.04f));
+      newTuple.addField(Field("example_string"));
 
       table.push_back(newTuple); // Add to main table
       index[key].push_back(value); // Update index
